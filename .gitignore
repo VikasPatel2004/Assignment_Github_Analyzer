@@ -1,0 +1,52 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build and cache
+dist/
+build/
+.cache/
+.tmp/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+
+# Dependency lock files (optional, keep if you want reproducible builds)
+package-lock.json
+yarn.lock
+
+# Coverage reports
+coverage/
+
+# SQL-related files
+*.sql
+*.sqlite
+*.db
+*.db-journal
+
+# Uploads or temp storage
+uploads/
+tmp/
+storage/
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
