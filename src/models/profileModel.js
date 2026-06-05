@@ -42,6 +42,42 @@ const saveProfile = async (profileData) => {
   return result;
 };
 
+// This model is being created for the purpose of checking if the profile is already present in the database or not.
+const findProfileByUsername = async (username) => {
+
+    const [rows] = await db.query(
+        "SELECT * FROM github_profiles WHERE username = ?",
+        [username]
+    );
+
+    return rows[0];
+};
+
+// This model is being created to fetch all the profiles
+const getAllProfiles = async () => {
+
+    const [rows] = await db.query(
+        "SELECT * FROM github_profiles"
+    );
+
+    return rows;
+};
+
+// This model is being created to fetch a single profile by username
+const getProfileByUsername =
+async(username)=>{
+
+    const [rows] = await db.query(
+        "SELECT * FROM github_profiles WHERE username = ?",
+        [username]
+    );
+
+    return rows[0];
+};
+
 module.exports = {
-  saveProfile,
+    saveProfile,
+    findProfileByUsername,
+    getAllProfiles,
+    getProfileByUsername
 };

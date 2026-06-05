@@ -1,4 +1,6 @@
 const { getGithubProfile } = require("../services/githubService");
+const { getAllProfiles } = require("../models/profileModel");
+const { getProfileByUsername } = require("../models/profileModel");
 
 const {
   calculateAccountAge,
@@ -8,12 +10,27 @@ const {
   calculatePopularityTier,
 } = require("../services/analysisService");
 
-const { saveProfile } = require("../models/profileModel");
+const { saveProfile,findProfileByUsername } = require("../models/profileModel");
 
 const analyzeProfile = async (req, res) => {
   try {
     const { username } = req.params;
+   
+    // Check if profile already exists
+    const existingProfile =
+await findProfileByUsername(username);
 
+if(existingProfile){
+
+    return res.status(200).json({
+        success:true,
+        message:"Profile already analyzed",
+        data:existingProfile
+    });
+
+}
+
+// Fetch from GitHub API
     const githubData = await getGithubProfile(username);
 
     const profileData = {
@@ -72,6 +89,72 @@ const analyzeProfile = async (req, res) => {
   }
 };
 
+// get profiles controller to get all the profiles
+const getProfiles = async (req,res)=>{
+
+    try{
+
+        const profiles =
+        await getAllProfiles();
+
+        return res.status(200).json({
+            success:true,
+            count:profiles.length,
+            data:profiles
+        });
+
+    }
+    catch(error){
+
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        });
+
+    }
+
+};
+
+// get profile controller to get a single profile
+const getProfile = async (req,res)=>{
+
+    try{
+
+        const { username } = req.params;
+
+        const profile =
+        await getProfileByUsername(
+            username
+        );
+
+        if(!profile){
+
+            return res.status(404).json({
+                success:false,
+                message:"Profile not found"
+            });
+
+        }
+
+        return res.status(200).json({
+            success:true,
+            data:profile
+        });
+
+    }
+    catch(error){
+
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        });
+
+    }
+
+};
+
 module.exports = {
   analyzeProfile,
+  getProfiles,
+  getProfile
 };
