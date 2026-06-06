@@ -5,7 +5,8 @@ const {
   getProfiles,
   getProfile,
   refreshProfile,
-  getTopProfilesController
+  getTopProfilesController,
+  searchProfilesController
 } = require("../controllers/profileController");
 
 const router = express.Router();
@@ -20,6 +21,11 @@ router.get(
 router.get(
   "/top",
   getTopProfilesController
+);
+
+router.get(
+  "/search",
+  searchProfilesController
 );
 
 // get a single profile route

@@ -3,6 +3,7 @@ const { getAllProfiles } = require("../models/profileModel");
 const { getProfileByUsername } = require("../models/profileModel");
 const { updateProfile } = require("../models/profileModel");
 const { getTopProfiles } = require("../models/profileModel");
+const { searchProfiles } = require("../models/profileModel");
 
 const {
   calculateAccountAge,
@@ -250,10 +251,38 @@ async (req,res)=>{
 
 };
 
+// search profiles controller to search the profiles
+const searchProfilesController = async (req, res) => {
+
+  try {
+
+    const { q } = req.query;
+
+    const profiles =
+      await searchProfiles(q);
+
+    return res.status(200).json({
+      success: true,
+      count: profiles.length,
+      data: profiles
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+
+};
+
 module.exports = {
   analyzeProfile,
   getProfiles,
   getProfile,
   refreshProfile,
-  getTopProfilesController
+  getTopProfilesController,
+  searchProfilesController
 };

@@ -132,11 +132,27 @@ const getTopProfiles = async () => {
   return rows;
 };
 
+// This model is being created to search the profiles
+const searchProfiles = async (searchTerm) => {
+
+  const [rows] = await db.query(
+    `
+    SELECT *
+    FROM github_profiles
+    WHERE username LIKE ?
+    `,
+    [`%${searchTerm}%`]
+  );
+
+  return rows;
+};
+
 module.exports = {
     saveProfile,
     findProfileByUsername,
     getAllProfiles,
     getProfileByUsername,
     updateProfile,
-    getTopProfiles
+    getTopProfiles,
+    searchProfiles
 };
