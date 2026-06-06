@@ -1,10 +1,20 @@
 # GitHub Profile Analyzer API
 
+## Live Demo
+
+**Deployed API:**
+https://assignment-github-analyzer.onrender.com/
+
+**Swagger Documentation:**
+https://assignment-github-analyzer.onrender.com/api-docs
+
+---
+
 ## Overview
 
 GitHub Profile Analyzer API is a backend application built using Node.js, Express.js, MySQL, and the GitHub Public API.
 
-The application fetches public GitHub profile data, generates useful insights, stores the analyzed results in a MySQL database, and provides APIs to retrieve and manage the stored profile information.
+The application fetches GitHub user data, analyzes profile statistics, stores useful insights in a MySQL database, and exposes REST APIs to retrieve and manage analyzed profiles.
 
 ---
 
@@ -12,30 +22,49 @@ The application fetches public GitHub profile data, generates useful insights, s
 
 ### Core Features
 
-* Fetch GitHub user profile data using username
-* Analyze GitHub profile information
-* Store analyzed data in MySQL
+* Analyze GitHub profiles using username
+* Fetch data from GitHub Public API
+* Store analyzed results in MySQL
 * Retrieve all analyzed profiles
 * Retrieve a single analyzed profile
 
 ### Additional Features
 
 * Refresh stored profile data
-* Search profiles by username
+* Search analyzed profiles
 * Get top profiles based on followers
 * Swagger API documentation
+* Environment-based configuration
+* Cloud deployment support
 
 ---
 
 ## Tech Stack
 
+### Backend
+
 * Node.js
 * Express.js
+
+### Database
+
 * MySQL
+
+### Third-Party API
+
 * GitHub REST API
-* Axios
+
+### Documentation
+
 * Swagger UI Express
 * Swagger JSDoc
+
+### Other Packages
+
+* Axios
+* Dotenv
+* Cors
+* Mysql2
 
 ---
 
@@ -73,113 +102,39 @@ src
 
 ### Table: github_profiles
 
-| Column              | Description                     |
-| ------------------- | ------------------------------- |
-| id                  | Primary Key                     |
-| username            | GitHub Username                 |
-| name                | User Name                       |
-| bio                 | GitHub Bio                      |
-| followers           | Followers Count                 |
-| following           | Following Count                 |
-| public_repos        | Public Repository Count         |
-| account_age_years   | Account Age                     |
-| follower_repo_ratio | Followers-to-Repositories Ratio |
-| profile_score       | Profile Completeness Score      |
-| activity_score      | Activity Score                  |
-| popularity_tier     | Popularity Classification       |
-| avatar_url          | Profile Avatar URL              |
-| github_url          | GitHub Profile URL              |
-| created_at          | Record Creation Time            |
-| updated_at          | Last Update Time                |
+| Column              | Type      |
+| ------------------- | --------- |
+| id                  | INT       |
+| username            | VARCHAR   |
+| name                | VARCHAR   |
+| bio                 | TEXT      |
+| followers           | INT       |
+| following           | INT       |
+| public_repos        | INT       |
+| account_age_years   | DECIMAL   |
+| follower_repo_ratio | DECIMAL   |
+| profile_score       | INT       |
+| activity_score      | INT       |
+| popularity_tier     | VARCHAR   |
+| avatar_url          | TEXT      |
+| github_url          | TEXT      |
+| created_at          | TIMESTAMP |
+| updated_at          | TIMESTAMP |
 
 ---
 
-## Generated Insights
+## Insights Generated
 
-The application generates the following insights:
+The API calculates and stores:
 
-### Account Age
-
-Calculates the age of the GitHub account in years.
-
-### Follower Repository Ratio
-
-Measures popularity relative to repository count.
-
-### Profile Score
-
-Based on the availability of:
-
-* Bio
-* Location
-* Company
-* Blog
-
-### Activity Score
-
-Calculated using:
-
-* Followers
-* Following
-* Public Repositories
-
-### Popularity Tier
-
-Classification based on follower count:
-
-* Beginner
-* Growing
-* Influencer
-* Star
-
----
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone <repository-url>
-```
-
-### Navigate To Project
-
-```bash
-cd github-profile-analyzer
-```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-### Configure Environment Variables
-
-Create a `.env` file:
-
-```env
-PORT=5000
-
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=github_analyzer
-```
-
-### Start Server
-
-Development Mode:
-
-```bash
-npm run dev
-```
-
-Production Mode:
-
-```bash
-npm start
-```
+* Followers Count
+* Following Count
+* Public Repository Count
+* Account Age
+* Followers-to-Repositories Ratio
+* Profile Score
+* Activity Score
+* Popularity Tier
 
 ---
 
@@ -213,12 +168,6 @@ GET /api/profiles
 GET /api/profiles/:username
 ```
 
-Example:
-
-```http
-GET /api/profiles/octocat
-```
-
 ---
 
 ### Refresh Profile
@@ -245,34 +194,67 @@ GET /api/profiles/top
 
 ---
 
-## Swagger Documentation
+## Installation
 
-After starting the server, Swagger documentation can be accessed at:
+### Clone Repository
 
-```text
-http://localhost:5000/api-docs
+```bash
+git clone <repository-url>
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+PORT=5000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=github_analyzer
+
+GITHUB_TOKEN=your_github_token
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Start Production Server
+
+```bash
+npm start
 ```
 
 ---
 
-## Error Handling
+## API Documentation
 
-The API handles:
+Swagger UI is available at:
 
-* Invalid GitHub usernames
-* Duplicate profile entries
-* Database errors
-* Server errors
+https://assignment-github-analyzer.onrender.com/api-docs
 
 ---
 
-## Future Improvements
+## Deployment
 
-* Pagination support
-* Authentication and authorization
-* Profile analytics dashboard
-* Scheduled profile refresh
-* Advanced GitHub statistics
+### Backend
+
+Render
+
+### Database
+
+Railway MySQL
 
 ---
 
