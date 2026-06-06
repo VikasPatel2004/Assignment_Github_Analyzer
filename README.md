@@ -24,7 +24,6 @@ The application fetches public GitHub profile data, generates useful insights, s
 * Search profiles by username
 * Get top profiles based on followers
 * Swagger API documentation
-* Global error handling
 
 ---
 
@@ -63,7 +62,6 @@ src
 │   └── profileRoutes.js
 │
 ├── middlewares
-│   └── errorHandler.js
 │
 ├── app.js
 └── server.js
