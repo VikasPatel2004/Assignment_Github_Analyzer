@@ -3,18 +3,26 @@ const express = require("express");
 const {
   analyzeProfile,
   getProfiles,
-  getProfile
+  getProfile,
+  refreshProfile,
+  getTopProfilesController
 } = require("../controllers/profileController");
 
 const router = express.Router();
 
-// get profiles route
+// get all profiles route
 router.get(
     "/",
     getProfiles
 );
 
-// get profile route
+// get top profiles route
+router.get(
+  "/top",
+  getTopProfilesController
+);
+
+// get a single profile route
 router.get(
     "/:username",
     getProfile
@@ -25,6 +33,13 @@ router.post(
   "/:username/analyze",
   analyzeProfile
 );
+
+// refresh profile route
+router.put(
+  "/:username/refresh",
+  refreshProfile
+);
+
 
 
 module.exports = router;
