@@ -10,10 +10,12 @@ const options = {
         "API for analyzing GitHub profiles and storing insights",
     },
     servers: [
-      {
-        url: "http://localhost:5000",
-      },
-    ],
+  {
+    url: process.env.NODE_ENV === "production"
+      ? "https://assignment-github-analyzer.onrender.com"
+      : "http://localhost:5000"
+  }
+],
   },
   apis: ["./src/routes/*.js"],
 };
