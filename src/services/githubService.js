@@ -5,7 +5,9 @@ const getGithubProfile = async (username) => {
   `https://api.github.com/users/${username}`,
   {
     headers: {
-      "User-Agent": "Github-Profile-Analyzer"
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      "User-Agent": "Github-Profile-Analyzer",
+      Accept: "application/vnd.github+json"
     }
   }
 );
